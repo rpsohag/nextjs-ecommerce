@@ -1,8 +1,10 @@
+import { ModeToggle } from "@/components/shared/theme-toggle";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="font-inter">NextJS ecommerce project</h1>
+    <div className="flex justify-between items-center p-10">
+      <h1 className="font-inter">ShopNow</h1>
+      <ModeToggle />
     </div>
   );
 }
