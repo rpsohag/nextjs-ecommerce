@@ -1,10 +1,21 @@
+import Header from "@/components/dashboard/header/Header";
+import Sidebar from "@/components/dashboard/sidebar/Sidebar";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 
-
-export default function AdminDashboardLayout({children}: {children: React.ReactNode}){
+export default async function AdminDashboardLayout({children}: {children: React.ReactNode}){
+    const user = await currentUser();
+    if(!user || !user?.privateMetadata?.role || user?.privateMetadata?.role !== 'ADMIN') redirect('/');
     return (
-        <>
-            {children}
-        </>
+        <div className="w-full h-full">
+            <Sidebar isAdmin />
+            <div className="w-full ml-[300px]">
+                <Header />
+                <div className="w-full mt-[100px] p-4">
+                    {children}
+                </div>
+            </div>
+        </div>
     )
 }
